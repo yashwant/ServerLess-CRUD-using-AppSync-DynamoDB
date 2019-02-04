@@ -1,0 +1,7 @@
+query getUserLoginHistory {
+  getUserLoginHistory(id:"60e14f99-bfd0-47e3-b55f-3dea775dc544") {
+    id
+    userId
+    action
+  }
+}

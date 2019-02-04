@@ -1,0 +1,14 @@
+mutation addUser {
+  addUser(
+    username: "yashwantg"
+    email: "yashwant@visionalyst.com"
+    age: "27 years"
+    usertype: "guest"
+  ) {
+    id
+    username
+    email
+    age
+    usertype
+  }
+}

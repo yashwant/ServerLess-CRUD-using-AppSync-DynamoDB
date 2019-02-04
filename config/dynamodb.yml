@@ -1,0 +1,60 @@
+resources:
+  Resources:
+
+    # id, username, email, age, type
+    usersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.DB_TABLE_USER}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          # - AttributeName: username
+          #   AttributeType: S
+          # - AttributeName: email
+          #   AttributeType: S
+          # - AttributeName: type
+          #   AttributeType: S
+
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+
+    # id, userId (refers to username in user), action
+    userLoginHistoryTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.DB_TABLE_USER_LOGIN_HISTORY}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: userId
+            AttributeType: S
+          # - AttributeName: action
+          #   AttributeType: S
+
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+          # - AttributeName: userId
+          #   KeyType: RANGE
+        GlobalSecondaryIndexes:
+          - IndexName: usernameIndex
+            KeySchema:
+              - AttributeName: userId
+                KeyType: HASH
+              - AttributeName: id
+                KeyType: RANGE
+
+            Projection:
+              ProjectionType: ALL
+            ProvisionedThroughput:
+              ReadCapacityUnits: 1
+              WriteCapacityUnits: 1
+
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1

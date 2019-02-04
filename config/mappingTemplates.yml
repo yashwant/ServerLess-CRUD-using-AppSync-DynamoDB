@@ -1,0 +1,48 @@
+mappingTemplates:
+  - dataSource: "awsDynamoDBUserTableDataSource"
+    type: Query # type name in schema (e.g. Query, Mutation, Subscription)
+    field: getUser
+    request: "user/get-user-request.txt"
+    response: "user/get-user-response.txt"
+
+  - dataSource: "awsDynamoDBUserTableDataSource"
+    type: Query
+    field: allUser
+    request: "user/get-all-user-request.txt"
+    response: "user/get-all-user-response.txt"
+
+  - dataSource: "awsDynamoDBUserLoginHistoryTableDataSource"
+    type: Query
+    field: getUserLoginHistory
+    request: "user-login-history/get-user-login-history-request.txt"
+    response: "user-login-history/get-user-login-history-response.txt"
+
+  # - dataSource: "awsDynamoDBUserLoginHistoryTableDataSource"
+  #   type: Query
+  #   field: allUserLoginHistoryByUser
+  #   request: "user-login-history/get-user-all-login-history-request.txt"
+  #   response: "user-login-history/get-user-all-login-history-response.txt"
+
+  - dataSource: "awsDynamoDBUserTableDataSource"
+    type: Mutation
+    field: addUser
+    request: "user/add-user-request.txt"
+    response: "user/add-user-response.txt"
+
+  - dataSource: "awsDynamoDBUserTableDataSource"
+    type: Mutation
+    field: updateUser
+    request: "user/update-user-request.txt"
+    response: "user/update-user-response.txt"
+
+  - dataSource: "awsDynamoDBUserTableDataSource"
+    type: Mutation
+    field: deleteUser
+    request: "user/delete-user-request.txt"
+    response: "user/delete-user-response.txt"
+
+  - dataSource: "awsDynamoDBUserLoginHistoryTableDataSource"
+    type: Mutation
+    field: addUserLoginHistory
+    request: "user-login-history/add-user-login-history-request.txt"
+    response: "user-login-history/add-user-login-history-response.txt"

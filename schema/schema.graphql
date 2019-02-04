@@ -1,0 +1,50 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Query {
+    getUser(id: ID): User
+    allUser(count: Int, nextToken: String): PaginatedUsers!
+    getUserLoginHistory(id: ID): UserLoginHistory
+}
+
+type Mutation {
+    deleteUser(id: ID!): User
+    updateUser(
+        id: ID!
+        email: String!
+        age: String!
+        usertype: String!
+    ): User
+    addUser(
+	    username: String!
+	    email: String!
+	    age: String!
+	    usertype: String!
+    ): User!
+
+    addUserLoginHistory(
+        userId: String!
+        action: String!
+    ): UserLoginHistory!
+}
+
+type User {
+    id: ID!
+    username: String!
+    email: String!
+    age: String!
+    usertype: String!
+}
+
+type PaginatedUsers {
+    users: [User!]!
+    nextToken: String
+}
+
+type UserLoginHistory {
+    id: String!
+    userId: String!
+    action: String!
+}

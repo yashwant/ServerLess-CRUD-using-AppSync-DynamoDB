@@ -1,0 +1,17 @@
+{
+    "version" : "2017-02-28",
+    "operation" : "Query",
+    "index" : "usernameIndex",
+    "query" : {
+      "expression": "userId = :userId",
+        "expressionValues" : {
+          ":userId" : { "S" : "${context.arguments.userId}" }
+        }
+    }
+    #if( ${context.arguments.count} )
+        ,"limit": ${context.arguments.count}
+    #end
+    #if( ${context.arguments.nextToken} )
+        ,"nextToken": "${context.arguments.nextToken}"
+    #end
+}

@@ -1,0 +1,12 @@
+query allUser {
+  allUser(count: 5) {
+    users {
+      id
+      username
+      email
+      age
+      usertype
+    }
+    nextToken
+  }
+}

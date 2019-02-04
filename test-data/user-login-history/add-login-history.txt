@@ -1,0 +1,10 @@
+mutation addUserLoginHistory {
+  addUserLoginHistory(
+    userId: "yashwantg"
+    action: "signup"
+  ) {
+    id
+    userId
+    action
+  }
+}

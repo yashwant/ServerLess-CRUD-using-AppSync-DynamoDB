@@ -1,0 +1,13 @@
+mutation updateUser {
+  updateUser(
+    id:"c944c9fa-fa97-4128-a73f-f52c422643f9"
+    email: "nomail@email.com"
+    age: "28 years"
+    usertype: "12"
+  ) {
+    id
+    email
+    age
+    usertype
+  }
+}

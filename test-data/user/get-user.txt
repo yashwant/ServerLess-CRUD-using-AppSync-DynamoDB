@@ -1,0 +1,9 @@
+query getUser {
+  getUser(id:"c944c9fa-fa97-4128-a73f-f52c422643f9") {
+    id
+    username
+    email
+    age
+    usertype
+  }
+}

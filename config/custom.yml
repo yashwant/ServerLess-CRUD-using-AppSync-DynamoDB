@@ -1,0 +1,44 @@
+custom:
+  appSync:
+    name:  # defaults to api
+    authenticationType: AWS_IAM #API_KEY or AWS_IAM or AMAZON_COGNITO_USER_POOLS or OPENID_CONNECT
+    mappingTemplatesLocation: "mapping-templates/" # defaults to mapping-templates
+    mappingTemplates: ${file(./config/mappingTemplates.yml):mappingTemplates}
+    schema: schema/schema.graphql
+    dataSources:
+      - type: AMAZON_DYNAMODB
+        name: awsDynamoDBUserTableDataSource # data source name
+        description: "User Table" # DynamoDB Table Description
+        config:
+          tableName: "${self:provider.environment.DB_TABLE_USER}" #{ Ref: MyTable } # Where MyTable is a dynamodb table defined in Resources
+          # serviceRoleArn: { Fn::GetAtt: [AppSyncDynamoDBServiceRole, Arn] } # Where AppSyncDynamoDBServiceRole is an IAM role defined in Resources
+          iamRoleStatements: # custom IAM Role statements for this DataSource. Ignored if `serviceRoleArn` is present. Auto-generated if both `serviceRoleArn` and `iamRoleStatements` are omitted
+            - Effect: "Allow"
+              Action:
+                - dynamodb:Query
+                - dynamodb:Scan
+                - dynamodb:GetItem
+                - dynamodb:PutItem
+                - dynamodb:UpdateItem
+              Resource:
+                - "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DB_TABLE_USER}"
+                - "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DB_TABLE_USER}/*"
+          region: "${opt:region, self:provider.region}" # Overwrite default region for this data source
+
+      - type: AMAZON_DYNAMODB
+        name: awsDynamoDBUserLoginHistoryTableDataSource
+        description: "User Login History Table"
+        config:
+          tableName: "${self:provider.environment.DB_TABLE_USER_LOGIN_HISTORY}"
+          iamRoleStatements:
+            - Effect: "Allow"
+              Action:
+                - dynamodb:Query
+                - dynamodb:Scan
+                - dynamodb:GetItem
+                - dynamodb:PutItem
+                - dynamodb:UpdateItem
+              Resource:
+                - "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DB_TABLE_USER_LOGIN_HISTORY}"
+                - "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DB_TABLE_USER_LOGIN_HISTORY}/*"
+          region: "${opt:region, self:provider.region}"

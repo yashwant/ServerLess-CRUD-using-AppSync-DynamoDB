@@ -1,0 +1,21 @@
+service: sls-appsync-backend
+frameworkVersion: ">=1.1.0 <2.0.0"
+
+plugins:
+   - serverless-appsync-plugin
+   - serverless-pseudo-parameters
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  profile: ${file(./config/parameters.yml):profile}
+  stage: ${file(./config/parameters.yml):stage}
+  region: ${file(./config/parameters.yml):region}
+  deploymentBucket: ${file(./config/parameters.yml):DEPLOYMENT_S3_BUCKET}
+
+  environment:
+    DB_TABLE_USER: userTabl
+    DB_TABLE_USER_LOGIN_HISTORY: userLoginHistoryTabl
+
+custom: ${file(./config/custom.yml):custom}
+resources: ${file(./config/dynamodb.yml):resources}
